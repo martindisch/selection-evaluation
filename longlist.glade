@@ -101,7 +101,7 @@ Please fill in your age and gender below.</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="subjectAge">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="halign">start</property>
@@ -126,6 +126,7 @@ Please fill in your age and gender below.</property>
                         <property name="receives_default">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="onButtonToggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -142,6 +143,7 @@ Please fill in your age and gender below.</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radiobutton1</property>
+                        <signal name="toggled" handler="onButtonToggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -158,6 +160,7 @@ Please fill in your age and gender below.</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">radiobutton1</property>
+                        <signal name="toggled" handler="onButtonToggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>

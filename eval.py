@@ -81,11 +81,13 @@ class LongList:
         builder.connect_signals(self)
         # Collect view elements
         self.currentApp = builder.get_object("currentApp")
+        self.subjectAge = builder.get_object("subjectAge")
         listmodel = builder.get_object("applicationsStore")
         treeview = builder.get_object("applicationsView")
         window = builder.get_object("mainWindow")
         # Prepare other application state
         self.running = False
+        self.gender = "male"
         # Add applications to the list model
         for a in apps:
             listmodel.append([a])
@@ -114,6 +116,9 @@ class LongList:
         # Start evaluation by showing the first item
         self.show_next_element()
 
+    def onButtonToggled(self, button):
+        self.gender = button.get_label()
+
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
@@ -137,6 +142,9 @@ class LongList:
 
     def write_result(self):
         with open("{}.txt".format(str(int(self.start))), "w") as f:
+            f.write("Subject:\n")
+            f.write("{}, {}".format(self.gender, self.subjectAge.get_text()))
+            f.write("\n\n")
             f.write("Times for selection of individual items [s]:\n")
             f.write("\n".join([str(x) for x in self.intermediate_times]))
             f.write("\n\n")
