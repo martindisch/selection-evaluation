@@ -178,6 +178,7 @@ class ListEval:
         else:
             # User has selected everything, finish evaluation
             self.running = False
+            self.currentApp.set_text("You're done!\nThanks for your time.")
             self.write_result()
 
     def write_result(self):
