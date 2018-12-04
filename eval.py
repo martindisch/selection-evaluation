@@ -1,4 +1,4 @@
-import os
+import time
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -70,9 +70,7 @@ apps = [
     "WinAmp",
     "Word"
 ]
-
 to_select = [54, 33, 6, 19, 21, 64, 26, 34, 12, 53]
-
 
 class LongList:
 
@@ -102,29 +100,49 @@ class LongList:
         if (
             self.running and
             iter != None and
-            model[iter][0] == apps[to_select[0]]
+            model[iter][0] == apps[self.to_select[0]]
         ):
-            # Since the user selected it, remove from to_select
-            del to_select[0]
+            # Since the user selected it, remove from self.to_select
+            del self.to_select[0]
             # Request the next selection
             self.show_next_element()
 
     def onButtonPressed(self, button):
-        # Start evaluation
-        self.running = True
+        # Make copy of selection array
+        self.to_select = to_select[:]
+        self.intermediate_times = []
+        # Start evaluation by showing the first item
         self.show_next_element()
 
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
     def show_next_element(self):
-        if len(to_select) > 0:
+        if self.running:
+            # Remember how long it took the user to select this item
+            self.intermediate_times.append(time.time() - self.current_start)
+        else:
+            # We're showing the first application, start counting
+            self.running = True
+            self.start = time.time()
+
+        if len(self.to_select) > 0:
             # Show the next application to select
-            self.currentApp.set_text(apps[to_select[0]])
+            self.currentApp.set_text(apps[self.to_select[0]])
+            self.current_start = time.time()
         else:
             # User has selected everything, finish evaluation
             self.running = False
-            print("Done")
+            self.write_result()
+
+    def write_result(self):
+        with open("{}.txt".format(str(int(self.start))), "w") as f:
+            f.write("Times for selection of individual items [s]:\n")
+            f.write("\n".join([str(x) for x in self.intermediate_times]))
+            f.write("\n\n")
+            f.write("Total time [s]:\n")
+            f.write(str(sum(self.intermediate_times)))
+            f.write("\n")
 
 
 if __name__ == "__main__":
