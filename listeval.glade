@@ -86,7 +86,7 @@ Please fill in your age and gender below.</property>
                     <property name="can_focus">True</property>
                     <property name="halign">start</property>
                     <property name="valign">center</property>
-                    <property name="width_chars">0</property>
+                    <property name="width_chars">3</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
