@@ -72,10 +72,8 @@ apps = [
 ]
 apps_short = [
     "Audacity",
-    "Discord",
     "Firefox",
     "FurMark",
-    "Gimp",
     "Internet Explorer 6",
     "Matlab",
     "Paint",
