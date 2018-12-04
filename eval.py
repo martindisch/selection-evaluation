@@ -70,7 +70,18 @@ apps = [
     "WinAmp",
     "Word"
 ]
-to_select = [54, 33, 6, 19, 21, 64, 26, 34, 12, 53]
+to_select = [
+    "Steam",
+    "Matlab",
+    "Blender",
+    "FurMark",
+    "Gimp",
+    "Word",
+    "Internet Explorer 6",
+    "MSYS2",
+    "Discord",
+    "Skype"
+]
 
 class LongList:
 
@@ -102,7 +113,7 @@ class LongList:
         if (
             self.running and
             iter != None and
-            model[iter][0] == apps[self.to_select[0]]
+            model[iter][0] == self.to_select[0]
         ):
             # Since the user selected it, remove from self.to_select
             del self.to_select[0]
@@ -133,7 +144,7 @@ class LongList:
 
         if len(self.to_select) > 0:
             # Show the next application to select
-            self.currentApp.set_text(apps[self.to_select[0]])
+            self.currentApp.set_text(self.to_select[0])
             self.current_start = time.time()
         else:
             # User has selected everything, finish evaluation
