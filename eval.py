@@ -70,6 +70,22 @@ apps = [
     "WinAmp",
     "Word"
 ]
+apps_short = [
+    "Audacity",
+    "Discord",
+    "Firefox",
+    "FurMark",
+    "Gimp",
+    "Internet Explorer 6",
+    "Matlab",
+    "Paint",
+    "PowerPoint",
+    "Skype",
+    "Steam",
+    "Terminal",
+    "Thunderbird",
+    "Word"
+]
 to_select = [
     "Steam",
     "Matlab",
@@ -83,18 +99,21 @@ to_select = [
     "Skype"
 ]
 
-class LongList:
+class ListEval:
 
     def __init__(self):
         # GTK initialization
         builder = Gtk.Builder()
-        builder.add_from_file("longlist.glade")
+        builder.add_from_file("listeval.glade")
         builder.connect_signals(self)
         # Collect view elements
         self.currentApp = builder.get_object("currentApp")
         self.subjectAge = builder.get_object("subjectAge")
+        self.selectionStack = builder.get_object("selectionStack")
         listmodel = builder.get_object("applicationsStore")
+        listmodel_short = builder.get_object("applicationsStoreShort")
         treeview = builder.get_object("applicationsView")
+        treeview_short = builder.get_object("applicationsViewShort")
         window = builder.get_object("mainWindow")
         # Prepare other application state
         self.running = False
@@ -102,9 +121,13 @@ class LongList:
         # Add applications to the list model
         for a in apps:
             listmodel.append([a])
+        for a in apps_short:
+            listmodel_short.append([a])
         # Render items in tree view
         col = Gtk.TreeViewColumn("Name", Gtk.CellRendererText(), text=0)
         treeview.append_column(col)
+        col_short = Gtk.TreeViewColumn("Name", Gtk.CellRendererText(), text=0)
+        treeview_short.append_column(col_short)
         # Display window
         window.show_all()
 
@@ -124,6 +147,8 @@ class LongList:
         # Make copy of selection array
         self.to_select = to_select[:]
         self.intermediate_times = []
+        # Remember which mode we're in (short or long list)
+        self.stack = self.selectionStack.get_visible_child_name()
         # Start evaluation by showing the first item
         self.show_next_element()
 
@@ -141,6 +166,10 @@ class LongList:
             # We're showing the first application, start counting
             self.running = True
             self.start = time.time()
+
+        # Return to the original list mode if it was changed
+        if self.selectionStack.get_visible_child_name() != self.stack:
+            self.selectionStack.set_visible_child_name(self.stack)
 
         if len(self.to_select) > 0:
             # Show the next application to select
@@ -165,5 +194,5 @@ class LongList:
 
 
 if __name__ == "__main__":
-    LongList()
+    ListEval()
     Gtk.main()

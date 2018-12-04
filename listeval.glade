@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="applicationsStore">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="applicationsStoreShort">
     <columns>
       <!-- column-name name -->
       <column type="gchararray"/>
@@ -11,6 +17,7 @@
   <object class="GtkWindow" id="mainWindow">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Selection Evaluation</property>
+    <property name="window_position">center-always</property>
     <property name="default_width">800</property>
     <property name="default_height">600</property>
     <property name="icon_name">applications-games</property>
@@ -30,33 +37,6 @@
             <property name="can_focus">False</property>
             <property name="vexpand">True</property>
             <property name="row_homogeneous">True</property>
-            <child>
-              <object class="GtkScrolledWindow">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkTreeView" id="applicationsView">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">applicationsStore</property>
-                    <property name="headers_visible">False</property>
-                    <property name="search_column">0</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection">
-                        <signal name="changed" handler="onSelectionChanged" swapped="no"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="height">3</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkGrid">
                 <property name="visible">True</property>
@@ -212,6 +192,96 @@ Please fill in your age and gender below.</property>
                 <property name="left_attach">1</property>
                 <property name="top_attach">0</property>
                 <property name="width">2</property>
+                <property name="height">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkStack" id="selectionStack">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="vexpand">True</property>
+                    <property name="transition_type">slide-up-down</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="long_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkTreeView" id="applicationsView">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="model">applicationsStore</property>
+                            <property name="headers_visible">False</property>
+                            <property name="search_column">0</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection">
+                                <signal name="changed" handler="onSelectionChanged" swapped="no"/>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">page_long</property>
+                        <property name="title" translatable="yes">Full list</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="short_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkTreeView" id="applicationsViewShort">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="model">applicationsStoreShort</property>
+                            <property name="headers_visible">False</property>
+                            <property name="search_column">0</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection">
+                                <signal name="changed" handler="onSelectionChanged" swapped="no"/>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">page_short</property>
+                        <property name="title" translatable="yes">Short list</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkStackSwitcher">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="stack">selectionStack</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
                 <property name="height">3</property>
               </packing>
             </child>

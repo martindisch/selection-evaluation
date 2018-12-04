@@ -6,7 +6,7 @@ elements or a smaller list with the most common elements and an overflow
 for the rest.
 
 ## Usage
-On a system with at least GTK 3.0 and Python 3, run it with `python eval.py`.
+On a system with at least GTK 3.10 and Python 3, run it with `python eval.py`.
 
 ## License
 [MIT License](LICENSE)
