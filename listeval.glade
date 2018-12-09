@@ -64,7 +64,7 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="name">page_long</property>
+                    <property name="name">long</property>
                     <property name="title" translatable="yes">Full list</property>
                   </packing>
                 </child>
@@ -89,7 +89,7 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="name">page_short</property>
+                    <property name="name">short</property>
                     <property name="title" translatable="yes">Short list</property>
                     <property name="position">1</property>
                   </packing>
